@@ -48,9 +48,10 @@
               <% end %>
             </li>
             <li class="list-group-item">
-              <%= link_to "课程表" ,show_owned_course_path(@course)%>
-                  <span class="glyphicon glyphicon-chevron-right"></span>
+              <%= link_to  show_owned_course_path(@course) do%>
+                  <span class="glyphicon glyphicon-chevron-right"></span>课程表
                   <span class="label label-info pull-right"><%= current_user.courses.length %></span>
+                  <% end %>
             </li>
         <% end %>
 
