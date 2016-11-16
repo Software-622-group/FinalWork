@@ -10,6 +10,36 @@ class CoursesController < ApplicationController
     #对课程进行排序
     @course=@course.sort_by{|e| e[:course_time]}
   end
+
+  #添加对于课程的开放与否的控制
+  def open
+    @course =Course.find_by_id(params[:id])
+
+    #@course.each do
+    #|course|
+    #  course.course_open=true
+    #end
+
+    if @course.update_attributes(:course_open=>"true")
+      redirect_to courses_path, flash: {:success => "已经成功开启该课程:#{ @course.name}"}
+    else
+      redirect_to courses_path,flash:{:danger => "#{@course.name} 开启课程失败！"}
+    end
+
+  end
+
+  def close
+
+    @course = Course.find_by_id(params[:id])
+
+    if @course.update_attributes(:course_open=>"false")
+      redirect_to courses_path, flash: {:success => "已经成功关闭该课程:#{ @course.name}"}
+    else
+      redirect_to courses_path,flash:{:danger => "#{@course.name} 关闭课程失败！"}
+    end
+
+  end
+
   #-------------------------for teachers----------------------
 
   def new
@@ -54,7 +84,16 @@ class CoursesController < ApplicationController
   def list
     @course=Course.all
     @course=@course-current_user.courses
-
+    #添加是否开课
+    openedcourses=[]
+    @course.each do
+      |course|
+      if course.course_open==true
+        openedcourses<<course
+      end
+    end
+    @course.clear
+    @course=openedcourses
     #对课程进行排序
     @course=@course.sort_by{|e| e[:course_time]}
   end
@@ -64,6 +103,7 @@ class CoursesController < ApplicationController
 
   def select
     @course=Course.find_by_id(params[:id])
+
     flag=false
     current_user.courses.each do
         |nowcourse|
@@ -124,7 +164,7 @@ class CoursesController < ApplicationController
 
   def course_params
     params.require(:course).permit(:course_code, :name, :course_type, :teaching_type, :exam_type,
-                                   :credit, :limit_num, :class_room, :course_time, :course_week)
+                                   :credit, :limit_num, :class_room, :course_time, :course_week,:course_open)
   end
 
 end

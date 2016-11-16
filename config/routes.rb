@@ -21,10 +21,17 @@ Rails.application.routes.draw do
     member do
       get :select
       get :quit
-      get :show_owned
+
+      #设置课程的开课与否定义的两个方法
+      get :open
+      get :close
+
     end
     collection do
       get :list
+      get :show_owned
+
+
     end
   end
 

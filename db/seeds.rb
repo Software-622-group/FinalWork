@@ -145,6 +145,7 @@ teacher_map.keys.each do |index|
       class_room: course_map[index][:class_room],
       teaching_type: course_map[index][:teaching_type],
       exam_type: course_map[index][:exam_type],
+      course_open: rand(1..14)%2==0?true:false,
   )
 
 end
@@ -162,7 +163,10 @@ end
 
   course_array=(1..34).to_a.sort { rand() - 0.5 }[1..rand(4..8)]
   course_array.each do |index|
+
     student.courses<<Course.find(index)
+
+
   end
 
 end
