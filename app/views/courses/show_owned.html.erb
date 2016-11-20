@@ -29,108 +29,289 @@
             </thead>
             <tbody>
 
-             <% count=0
-                leftcourse=[]
+             <%
+               weekcount=0
+               count=1  #代表第几节课
+               nowweek=0
+               classstart=0
+               classend=0
+
+               currentcount=0
+               currentcourse=@course[0]
+               for index in (1..11)
+               count =index
+               weekcount=1
              %>
-            <%
-              for index in (0..@course.length-1)
-                 course=@course[index]
-             %>
-                <%
-
-                  count=count+1
-                  strtime=course.course_time
-                  day=strtime[1]
-                  strclasstime=strtime[3..5]
-                  classtime=strclasstime.split("-")
-
-                  cstart=classtime[0].to_i
-                  cend=classtime[1].to_i
-
-                  courseinfo=course.name+course.course_time
-
-                  if day=='一'
-                    nday=1
-                  elsif day=='二'
-                    nday=2
-                  elsif day=='三'
-                    nday=3
-                  elsif day=='四'
-                    nday=4
-                  elsif day=='五'
-                    nday=5
-                  elsif day=='六'
-                    nday=6
-                  elsif
-                  nday=7
-                  end
-
-
-                %>
-
-                <%  if 1
-
-                %>
 
                 <tr>
                   <td><%= count %></td>
 
+                  <% @course.each do |course|
+                  strcoursetime=course.course_time
+                    if strcoursetime[1]=='1'
+                      nowweek=1
+                    elsif  strcoursetime[1]=='2'
+                      nowweek=2
+                    elsif  strcoursetime[1]=='3'
+                      nowweek=3
+                    elsif  strcoursetime[1]=='4'
+                      nowweek=4
+                    elsif  strcoursetime[1]=='5'
+                      nowweek=5
+                    elsif  strcoursetime[1]=='6'
+                      nowweek=6
+                    elsif  strcoursetime[1]=='7'
+                      nowweek=7
+                    end
+                   classstart=strcoursetime[2..3].to_i
+                    classend=strcoursetime[4..5].to_i
+                  %>
+                      <%  if weekcount==nowweek and count>=classstart and count<=classend  %>
+                          <td align="left"><%=
+                            course.name
+
+                          %></td>
+                      <%
+                        end
+                        end
+                        weekcount=weekcount+1
+                      %>
 
 
-                  <td><%= if nday==1
-                            courseinfo
-                          end
-                  %></td>
+                  <% @course.each do |course|
+                    strcoursetime=course.course_time
+                    if strcoursetime[1]=='1'
+                      nowweek=1
+                    elsif  strcoursetime[1]=='2'
+                      nowweek=2
+                    elsif  strcoursetime[1]=='3'
+                      nowweek=3
+                    elsif  strcoursetime[1]=='4'
+                      nowweek=4
+                    elsif  strcoursetime[1]=='5'
+                      nowweek=5
+                    elsif  strcoursetime[1]=='6'
+                      nowweek=6
+                    elsif  strcoursetime[1]=='7'
+                      nowweek=7
+                    end
+                    classstart=strcoursetime[2..3].to_i
+                    classend=strcoursetime[4..5].to_i
+                  %>
+                      <%  if weekcount==nowweek and count>=classstart and count<=classend  %>
+                      <td align="left"><%=
+                                 course.name
 
-                  <td><%= if nday==2
-                            courseinfo
-
-                          end
-                  %></td>
-
-                  <td ><%= if nday==3
-                            courseinfo
-                          end
-                  %></td>
+                      %></td>
+                  <%
+                    end
+                    end
+                    weekcount=weekcount+1
+                  %>
 
 
-                  <td><%= if nday==4
-                            courseinfo
 
-                          end
-                  %></td>
+                  <% @course.each do |course|
+                    strcoursetime=course.course_time
+                    if strcoursetime[1]=='1'
+                      nowweek=1
+                    elsif  strcoursetime[1]=='2'
+                      nowweek=2
+                    elsif  strcoursetime[1]=='3'
+                      nowweek=3
+                    elsif  strcoursetime[1]=='4'
+                      nowweek=4
+                    elsif  strcoursetime[1]=='5'
+                      nowweek=5
+                    elsif  strcoursetime[1]=='6'
+                      nowweek=6
+                    elsif  strcoursetime[1]=='7'
+                      nowweek=7
+                    end
+                    classstart=strcoursetime[2..3].to_i
+                    classend=strcoursetime[4..5].to_i
+                    if weekcount==nowweek and count>=classstart and count<=classend
+                      currentcount=1
+                      currentcourse=course
+                    end
+                  %>
+                      <%  if weekcount==nowweek and count>=classstart and count<=classend  %>
+                          <td align="left"><%=
+                            course.name
 
-                  <td><%= if nday==5
-                            courseinfo
+                          %></td>
+                      <%
+                        end
+                        end
+                        weekcount=weekcount+1
+                      %>
 
-                          end
-                  %></td>
 
-                  <td><%= if nday==6
-                            courseinfo
 
-                          end
-                  %></td>
+                <% @course.each do |course|
+                    strcoursetime=course.course_time
+                    if strcoursetime[1]=='1'
+                      nowweek=1
+                    elsif  strcoursetime[1]=='2'
+                      nowweek=2
+                    elsif  strcoursetime[1]=='3'
+                      nowweek=3
+                    elsif  strcoursetime[1]=='4'
+                      nowweek=4
+                    elsif  strcoursetime[1]=='5'
+                      nowweek=5
+                    elsif  strcoursetime[1]=='6'
+                      nowweek=6
+                    elsif  strcoursetime[1]=='7'
+                      nowweek=7
+                    end
+                    classstart=strcoursetime[2..3].to_i
+                    classend=strcoursetime[4..5].to_i
+                    if weekcount==nowweek and count>=classstart and count<=classend
+                      currentcount=1
+                      currentcourse=course
+                    end
+                  %>
+                      <%  if weekcount==nowweek and count>=classstart and count<=classend  %>
+                          <td align="left"><%=
+                            course.name
 
-                  <td><%= if nday==7
-                            courseinfo
-                          end
-                  %></td>
+                          %></td>
+                      <%
+                        end
+                        end
+                        weekcount=weekcount+1
+                      %>
 
-                  <td></td>
+
+
+
+                <% @course.each do |course|
+                    strcoursetime=course.course_time
+                    if strcoursetime[1]=='1'
+                      nowweek=1
+                    elsif  strcoursetime[1]=='2'
+                      nowweek=2
+                    elsif  strcoursetime[1]=='3'
+                      nowweek=3
+                    elsif  strcoursetime[1]=='4'
+                      nowweek=4
+                    elsif  strcoursetime[1]=='5'
+                      nowweek=5
+                    elsif  strcoursetime[1]=='6'
+                      nowweek=6
+                    elsif  strcoursetime[1]=='7'
+                      nowweek=7
+                    end
+                    classstart=strcoursetime[2..3].to_i
+                    classend=strcoursetime[4..5].to_i
+                    if weekcount==nowweek and count>=classstart and count<=classend
+                      currentcount=1
+                      currentcourse=course
+                    end
+                  %>
+                      <%  if weekcount==nowweek and count>=classstart and count<=classend  %>
+                          <td align="left"><%=
+                            course.name
+
+                          %></td>
+                      <%
+                        end
+                        end
+                        weekcount=weekcount+1
+                      %>
+
+
+
+
+                <% @course.each do |course|
+                    strcoursetime=course.course_time
+                    if strcoursetime[1]=='1'
+                      nowweek=1
+                    elsif  strcoursetime[1]=='2'
+                      nowweek=2
+                    elsif  strcoursetime[1]=='3'
+                      nowweek=3
+                    elsif  strcoursetime[1]=='4'
+                      nowweek=4
+                    elsif  strcoursetime[1]=='5'
+                      nowweek=5
+                    elsif  strcoursetime[1]=='6'
+                      nowweek=6
+                    elsif  strcoursetime[1]=='7'
+                      nowweek=7
+                    end
+                    classstart=strcoursetime[2..3].to_i
+                    classend=strcoursetime[4..5].to_i
+                    if weekcount==nowweek and count>=classstart and count<=classend
+                      currentcount=1
+                      currentcourse=course
+                    end
+                  %>
+                      <%  if weekcount==nowweek and count>=classstart and count<=classend  %>
+                          <td align="left"><%=
+                            course.name
+
+                          %></td>
+                      <%
+                        end
+                        end
+                        weekcount=weekcount+1
+                      %>
+
+
+
+
+                <% @course.each do |course|
+                    strcoursetime=course.course_time
+                    if strcoursetime[1]=='1'
+                      nowweek=1
+                    elsif  strcoursetime[1]=='2'
+                      nowweek=2
+                    elsif  strcoursetime[1]=='3'
+                      nowweek=3
+                    elsif  strcoursetime[1]=='4'
+                      nowweek=4
+                    elsif  strcoursetime[1]=='5'
+                      nowweek=5
+                    elsif  strcoursetime[1]=='6'
+                      nowweek=6
+                    elsif  strcoursetime[1]=='7'
+                      nowweek=7
+                    end
+                    classstart=strcoursetime[2..3].to_i
+                    classend=strcoursetime[4..5].to_i
+                    if weekcount==nowweek and count>=classstart and count<=classend
+                      currentcount=1
+                      currentcourse=course
+                    end
+                  %>
+                      <%  if weekcount==nowweek and count>=classstart and count<=classend  %>
+                          <td align="left"><%=
+                            course.name
+
+                          %></td>
+                      <%
+                        end
+                        end
+                        weekcount=weekcount+1
+                      %>
+
+
 
                 </tr>
 
-            <% end %>
+
+
+            <%
+               end
+            %>
 
             <%
               #对课程再次进行排序
               @course=@course.sort_by{|e| e[:course_time]}
-              if @course.length ==0
-                   break
-               end
+
             %>
-            <% end %>
 
             </tbody>
           </table>
