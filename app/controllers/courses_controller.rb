@@ -121,6 +121,8 @@ class CoursesController < ApplicationController
       flash={:danger =>"#{@course.name} 已经添加到您的选课中，请选择其他课程!"}
       redirect_to courses_path, flash: flash
     end
+
+    #计算开课
   end
 
   def quit
