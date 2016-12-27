@@ -9,7 +9,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to root_url, flash: {success: "新账号注册成功,请登陆"}
+      session[:user_id] = @user.id #用户注册后即登录
+      redirect_to root_url, flash: {success: "新账号注册成功"}
     else
       flash[:warning] = "账号信息填写有误,请重试"
       render 'new'

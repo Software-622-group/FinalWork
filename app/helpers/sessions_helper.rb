@@ -11,7 +11,16 @@ module SessionsHelper
   def student_logged_in?
     !current_user.nil? && !current_user.teacher && !current_user.admin
   end
-
+  
+  def oauth_log_in
+    oauth_logged_in?  
+  end
+  
+  def oauth_logged_in?
+    auth_hash = request.env['omniauth.auth']
+    !auth_hash.nil?
+  end
+  
   def teacher_logged_in?
     !current_user.nil? && current_user.teacher
   end

@@ -13,11 +13,14 @@
             <li class=<%= "active" if params[:controller]=="courses" %>> <%= link_to "我的课程", courses_path %></li>
         <% elsif teacher_logged_in? %>
             <li class=<%= "active" if params[:controller]=="courses" %>> <%= link_to "课程管理", courses_path %></li>
+        <% elsif oauth_logged_in? %>
+            
         <% elsif admin_logged_in? %>
             <li> <%= link_to "控制面板", rails_admin_path %></li>
         <% end %>
 
       </ul>
+
 
       <ul class="nav navbar-nav navbar-right">
 
@@ -38,6 +41,21 @@
               <% end %>
             </li>
 
+        <% elsif oauth_logged_in?%>
+
+            <li>
+              <p class="navbar-text"><%= request.env['omniauth.auth'][:info][:name] %></p>
+            </li>
+
+            <li>
+              <p class="navbar-text"><%= request.env['omniauth.auth'][:provider] %></p>
+            </li>
+  
+            <li>
+              <%= link_to sessions_logout_path, method: :delete do %>
+                  退出 <span class="	glyphicon glyphicon-off"></span>
+              <% end %>
+            </li>        
         <% else %>
 
             <li><%= link_to sessions_login_path do %>
@@ -54,6 +72,7 @@
     </div>
   </div>
 </nav>
+
 
 
 

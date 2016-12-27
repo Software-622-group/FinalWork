@@ -12,8 +12,18 @@ class SessionsController < ApplicationController
     end
     redirect_to root_url, :flash => flash
   end
-
+  
   def new
+  end
+  
+
+
+  def create_oauth
+    @course=Course.all
+  end
+  
+  def failure
+    render :text => "Sorry, but you didn't allow access to our app!"
   end
 
   def destroy

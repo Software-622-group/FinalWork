@@ -11,6 +11,7 @@
         <div class="panel-heading">
           <% if teacher_logged_in? %><h3 class="panel-title">授课列表</h3><% end %>
           <% if student_logged_in? %><h3 class="panel-title">已选课程</h3><% end %>
+          <% if oauth_logged_in? %><h3 class="panel-title">开设课程</h3><% end %>
           <% if student_logged_in? %>
           <% 
            s_credit=0.0
