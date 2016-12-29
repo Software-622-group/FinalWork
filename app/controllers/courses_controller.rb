@@ -93,7 +93,7 @@ class CoursesController < ApplicationController
     @course.each do
       |course|
       if course.course_open==true
-        openedcourses<<course
+        openedcourses<< course
       end
     end
     @course.clear
