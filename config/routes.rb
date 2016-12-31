@@ -30,6 +30,8 @@ Rails.application.routes.draw do
     collection do
       get :list
       get :show_owned
+      get :select_by_time
+      get :list_by_selected
 
 
     end

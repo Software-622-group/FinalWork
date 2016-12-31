@@ -43,13 +43,19 @@
                       leftcourse=[]
                       for nowcourse in (Course.all-current_user.courses)
                          if nowcourse.course_open==true
-                           leftcourse<<nowcourse
+                           leftcourse<< nowcourse
                            end
                       end
 
                     %><%= leftcourse.length %></span>
               <% end %>
             </li>
+            <li class="list-group-item">
+              <%= link_to  select_by_time_courses_path do%>
+                  <span class="glyphicon glyphicon-chevron-right"></span>按时间选课
+                  <span class="label label-info pull-right"><%= current_user.courses.length %></span>
+                  <% end %>
+            </li>           
             <li class="list-group-item">
               <%= link_to courses_path do %>
                   <span class="glyphicon glyphicon-chevron-right"></span> 已选课程
