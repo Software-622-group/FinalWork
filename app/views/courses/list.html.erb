@@ -68,8 +68,11 @@
                   <td><%=
                             strcoursetime
                 %></td>
-                  <td><%= link_to "加入课程", select_course_path(course), class: 'btn-sm btn-info' %></td>
-
+                  <% if @isCanChosed %>
+                      <td><%= link_to "加入课程", select_course_path(course), class: 'btn-sm btn-info' %></td>
+                  <% else %>
+                      <td><%= link_to "不在选课时间", select_course_path(course), class: 'btn-sm btn-info' %></td>
+                  <% end %>
                 </tr>
             <%
                   

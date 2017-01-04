@@ -1,9 +1,13 @@
+require "date"
 class CoursesController < ApplicationController
-
+  before_action :in_chose_class_time? ,only: [:select,:quit]
   before_action :student_logged_in, only: [:select, :quit, :list]
   before_action :teacher_logged_in, only: [:new, :create, :edit, :destroy, :update]
   before_action :logged_in, only: :index
 #/-------------------------------------------------I add these cmments-
+  def initialize
+    ini_chose_state
+  end
   def show_owned
     @course=current_user.courses
 
@@ -15,6 +19,27 @@ class CoursesController < ApplicationController
     @course=current_user.courses
 
     @course=@course.sort_by{|e| e[:course_time]}
+  end
+
+  def in_chose_class_time?
+    ini_chose_state
+    if !@isCanChosed
+      redirect_to list_courses_path, flash: {:success => "亲，不再选课时间内#{year}"}
+    end
+  end
+
+  def ini_chose_state
+    @isCanChosed = false
+    timenow = DateTime.now
+    year = timenow.year
+    timenow = timenow.to_i
+    timestart = DateTime.new(year, 9, 1, 12, 0).to_i
+    timeend = DateTime.new(year, 9, 15, 12, 0).to_i
+
+    if timenow >timestart and timenow <timeend
+      @isCanChosed=true
+    end
+
   end
 
   def list_by_selected
@@ -35,6 +60,9 @@ class CoursesController < ApplicationController
     @course.clear
     @course = selectedcourses
     @course = @course.sort_by{|e| e[:course_time]}
+
+
+
   end
   
   #添加对于课程的开放与否的控制
@@ -127,6 +155,7 @@ class CoursesController < ApplicationController
     @course=openedcourses
     #对课程进行排序
     @course=@course.sort_by{|e| e[:course_time]}
+
   end
   
 
