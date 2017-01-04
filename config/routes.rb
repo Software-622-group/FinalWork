@@ -40,7 +40,6 @@ Rails.application.routes.draw do
       get :excel
       get :download_timetable
 
-
     end
   end
 
