@@ -18,23 +18,9 @@ class CoursesController < ApplicationController
   end
 
   def list_by_selected
-    render :text => "#{params[:str[1]]}"
-    classstart = 0
-    classend = 0
-    selectedcourses = []
+    
     @course = Course.all
     @course = @course-current_user.courses
-    @course.each do |course|
-      coursetime = course.course_time
-      classstart = coursetime[2..3].to_i
-      classend = coursetime[4..5].to_i
-      if params[:str[1]] == coursetime[1].to_i and params[:str[0]] >= classstart and params[:str[0]] <= classend
-        selectedcourses << course
-      end
-    end
-    @course.clear
-    @course = selectedcourses
-    @course = @course.sort_by{|e| e[:course_time]}
   end
   
   #添加对于课程的开放与否的控制
