@@ -25,7 +25,11 @@ Rails.application.routes.draw do
       #设置课程的开课与否定义的两个方法
       get :open
       get :close
-
+      #课程地点信息以及课程简介
+      get :show_describtion
+      get :course_introduction
+      #老师修改课程信息
+      get :update_introduction
     end
     collection do
       get :list

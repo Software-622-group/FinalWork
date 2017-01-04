@@ -34,8 +34,29 @@
             %>
                 <tr>
 
-                  <td><%= course.course_code %></td>
-                  <td><%= course.name %></td>
+                  <td>  <% if student_logged_in? %>
+                      <%= link_to  course_introduction_course_url(course) do%>
+                      <%= course.course_code %>
+          
+                  <% end %>
+                    <% end %>
+                    
+                     <% if teacher_logged_in? %>
+                     
+                     <%= link_to  update_introduction_course_url(course) do%>
+                      <%= course.course_code %>
+          
+                  <% end %>
+                     <%end%></td>
+                  
+                  
+                  <td>
+                   <%= link_to  show_describtion_course_url(course) do%>
+                
+                  <%= course.name %>
+                  <% end %>
+                    
+                    </td>
                   <td><%= course.credit %></td>
                   <td><%= course.limit_num %></td>
                   <td><%= course.student_num %></td>

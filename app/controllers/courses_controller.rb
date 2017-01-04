@@ -10,6 +10,19 @@ class CoursesController < ApplicationController
     #对课程进行排序
     @course=@course.sort_by{|e| e[:course_time]}
   end
+  #课程地点时间信息
+  def show_describtion
+     @course=Course.find_by_id(params[:id])
+  end
+  #课程简介
+  def course_introduction
+     @course=Course.find_by_id(params[:id])
+  end
+  
+  #用于修改课程大纲
+  def update_introduction
+         @course=Course.find_by_id(params[:id])
+  end
   
   def select_by_time
     @course=current_user.courses
@@ -90,7 +103,7 @@ class CoursesController < ApplicationController
   def update
     @course = Course.find_by_id(params[:id])
     if @course.update_attributes(course_params)
-      flash={:info => "更新成功"}
+      flash={:info => "更新成功 "}
     else
       flash={:warning => "更新失败"}
     end
@@ -238,7 +251,7 @@ class CoursesController < ApplicationController
 
   def course_params
     params.require(:course).permit(:course_code, :name, :course_type, :teaching_type, :exam_type,
-                                   :credit, :limit_num, :class_room, :course_time, :course_week,:course_open)
+                                   :credit, :limit_num, :class_room, :course_time, :course_week,:course_open,:course_description)
   end
 
 end
