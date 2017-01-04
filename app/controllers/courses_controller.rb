@@ -6,6 +6,7 @@ class CoursesController < ApplicationController
   before_action :logged_in, only: :index
 #/-------------------------------------------------I add these cmments-
   def initialize
+    super
     ini_chose_state
   end
   def show_owned
