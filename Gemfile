@@ -1,5 +1,10 @@
 
 source 'https://rubygems.org'
+
+gem "ekuseru"
+gem 'responders', '~> 2.0'
+
+
 #I change this second
 gem 'bootstrap-sass', '~> 3.3.7'
 # Use ActiveModel has_secure_password

@@ -11,6 +11,7 @@
         </div>
 
         <div class="panel-body" style="min-height: 450px">
+          <%= link_to "导出课程表", download_timetable_courses_path(:format =>:xls), class: 'btn btn-xs btn-info' %>
           <table class="table table-striped table-hover">
             <thead>
 
@@ -80,7 +81,7 @@
                          currentcount=0
                       %>
                       <td align="left"><%=
-                        currentcourse.name+weekcount.to_s
+                        currentcourse.name
 
                       %></td>
                   <%
@@ -128,7 +129,7 @@
                          currentcount=0
                       %>
                       <td align="left"><%=
-                        currentcourse.name+weekcount.to_s
+                        currentcourse.name
 
                       %></td>
                   <%
@@ -177,7 +178,7 @@
                             currentcount=0
                           %>
                           <td align="left"><%=
-                            currentcourse.name+weekcount.to_s
+                            currentcourse.name
 
                           %></td>
                       <%
@@ -226,7 +227,7 @@
                          currentcount=0
                       %>
                       <td align="left"><%=
-                        currentcourse.name+weekcount.to_s
+                        currentcourse.name
 
                       %></td>
                   <%
@@ -277,7 +278,7 @@
                          currentcount=0
                       %>
                       <td align="left"><%=
-                        currentcourse.name+weekcount.to_s
+                        currentcourse.name
 
                       %></td>
                   <%
@@ -328,7 +329,7 @@
                          currentcount=0
                       %>
                       <td align="left"><%=
-                        currentcourse.name+weekcount.to_s
+                        currentcourse.name
 
                       %></td>
                   <%
@@ -377,7 +378,7 @@
                          currentcount=0
                       %>
                       <td align="left"><%=
-                        currentcourse.name+weekcount.to_s
+                        currentcourse.name
 
                       %></td>
                   <%

@@ -1,14 +1,33 @@
+require "date"
 class CoursesController < ApplicationController
-
+  respond_to :html, :xls
+  before_action :in_chose_class_time? ,only: [:select,:quit]
   before_action :student_logged_in, only: [:select, :quit, :list]
   before_action :teacher_logged_in, only: [:new, :create, :edit, :destroy, :update]
   before_action :logged_in, only: :index
 #/-------------------------------------------------I add these cmments-
+  def initialize
+    super
+    ini_chose_state
+  end
   def show_owned
     @course=current_user.courses
 
     #对课程进行排序
     @course=@course.sort_by{|e| e[:course_time]}
+  end
+  #课程地点时间信息
+  def show_describtion
+     @course=Course.find_by_id(params[:id])
+  end
+  #课程简介
+  def course_introduction
+     @course=Course.find_by_id(params[:id])
+  end
+  
+  #用于修改课程大纲
+  def update_introduction
+         @course=Course.find_by_id(params[:id])
   end
   
   def select_by_time
@@ -16,25 +35,56 @@ class CoursesController < ApplicationController
 
     @course=@course.sort_by{|e| e[:course_time]}
   end
+  def excel
+    @courses=current_user.teaching_courses if teacher_logged_in?
+    @courses=current_user.courses if student_logged_in?
+    respond_with @courses
+  end
+  def download_timetable
+    @course=current_user.courses
+    @timetable = Array.new(8) {
+      Array.new(12, "")
+    }
+    @course.each do |course|
+      ctime = course.course_time
+      day = ctime[0, 2].to_i
+      starttime = ctime[2, 2].to_i
+      endtime = ctime[4, 2].to_i
+      for i in starttime..endtime
+        @timetable[day][i]= course.name
+      end
+      for i in starttime..endtime
+        puts @timetable[day][i]
+      end
+
+    end
+  end
+
+  def in_chose_class_time?
+    ini_chose_state
+    if !@isCanChosed
+      redirect_to list_courses_path, flash: {:success => "亲，不再选课时间内"}
+    end
+  end
+
+  def ini_chose_state
+    @isCanChosed = false
+    timenow = DateTime.now
+    year = timenow.year
+    timenow = timenow.to_i
+    timestart = DateTime.new(year-1, 9, 1, 12, 0).to_i
+    timeend = DateTime.new(year, 9, 15, 12, 0).to_i
+
+    if timenow >timestart and timenow <timeend
+      @isCanChosed=true
+    end
+
+  end
 
   def list_by_selected
-    render :text => "#{params[:str[1]]}"
-    classstart = 0
-    classend = 0
-    selectedcourses = []
+    
     @course = Course.all
     @course = @course-current_user.courses
-    @course.each do |course|
-      coursetime = course.course_time
-      classstart = coursetime[2..3].to_i
-      classend = coursetime[4..5].to_i
-      if params[:str[1]] == coursetime[1].to_i and params[:str[0]] >= classstart and params[:str[0]] <= classend
-        selectedcourses << course
-      end
-    end
-    @course.clear
-    @course = selectedcourses
-    @course = @course.sort_by{|e| e[:course_time]}
   end
   
   #添加对于课程的开放与否的控制
@@ -90,7 +140,7 @@ class CoursesController < ApplicationController
   def update
     @course = Course.find_by_id(params[:id])
     if @course.update_attributes(course_params)
-      flash={:info => "更新成功"}
+      flash={:info => "更新成功 "}
     else
       flash={:warning => "更新失败"}
     end
@@ -127,6 +177,7 @@ class CoursesController < ApplicationController
     @course=openedcourses
     #对课程进行排序
     @course=@course.sort_by{|e| e[:course_time]}
+
   end
   
 
@@ -238,7 +289,7 @@ class CoursesController < ApplicationController
 
   def course_params
     params.require(:course).permit(:course_code, :name, :course_type, :teaching_type, :exam_type,
-                                   :credit, :limit_num, :class_room, :course_time, :course_week,:course_open)
+                                   :credit, :limit_num, :class_room, :course_time, :course_week,:course_open,:course_description)
   end
 
 end
