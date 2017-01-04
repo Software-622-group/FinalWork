@@ -41,6 +41,6 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :test
   #host = 'https://courseselect02-a18366182849.cs50.io'
-  host = 'https://mailpanduan.herokuapp.com'
+  host = 'https://group-work.herokuapp.com'
   config.action_mailer.default_url_options = { host: host }
 end
