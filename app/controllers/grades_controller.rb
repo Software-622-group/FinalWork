@@ -1,4 +1,5 @@
 class GradesController < ApplicationController
+  respond_to :html, :xls
 
   before_action :teacher_logged_in, only: [:update]
 
@@ -10,12 +11,26 @@ class GradesController < ApplicationController
       flash={:danger => "上传失败.请重试"}
     end
     redirect_to grades_path(course_id: params[:course_id]), flash: flash
+
   end
 
   def index
     if teacher_logged_in?
       @course=Course.find_by_id(params[:course_id])
       @grades=@course.grades
+      respond_with @grades
+    elsif student_logged_in?
+      @grades=current_user.grades
+    else
+      redirect_to root_path, flash: {:warning=>"请先登陆"}
+    end
+  end
+
+  def download_chose_student
+    if teacher_logged_in?
+      @course=Course.find_by_id(params[:course_id])
+      @grades=@course.grades
+
     elsif student_logged_in?
       @grades=current_user.grades
     else

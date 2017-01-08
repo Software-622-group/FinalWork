@@ -1,26 +1,29 @@
 <div class="container-fluid">
 
-    <div class="col-sm-2">
-      <%= render "shared/sidenav" %>
-    </div>
-     <div class="col-sm-10">
-     <div class="panel panel-primary">
-         
-         <div class="panel-heading">
-          <h3 class="panel-title">课程大纲</h3>
-         </div>      
-          <div class="panel-body" style="min-height: 450px">
-              
-          <div><font  face="微软雅黑" size="4"><strong><%= @course.name%> </strong></font></div> <br>
-          <div><font  face="微软雅黑" size="3">课程编码：<%= @course.course_code%> &nbsp &nbsp课时/学分：<%= @course.credit %> &nbsp &nbsp 课程属性：<%= @course.course_type %>  &nbsp &nbsp主讲教师：<td><%= @course.teacher.name %></font></td></div>  
-          <br>
-          <div> 主要内容</div>
-          <div><textarea rows="20" cols="145" readonly><%= @course.course_description%></textarea></div>
-          
-          
-          
-          </div>
+  <div class="col-sm-2">
+    <%= render "shared/sidenav" %>
+  </div>
+  <div class="col-sm-10">
+    <div class="panel panel-primary">
+
+      <div class="panel-heading">
+        <h3 class="panel-title">课程大纲</h3>
+      </div>
+      <div class="panel-body" style="min-height: 450px">
+
+        <div><font face="微软雅黑" size="4"><strong><%= @course.name %> </strong></font></div>
+        <br>
+        <div>
+          <font face="微软雅黑" size="3">课程编码：<%= @course.course_code %> &nbsp &nbsp课时/学分：<%= @course.credit %> &nbsp &nbsp
+            课程属性：<%= @course.course_type %>  &nbsp &nbsp主讲教师：
+            <td><%= @course.teacher.name %></td></font></div>
+        <br>
+        <div> 主要内容</div>
+        <div><textarea rows="20" cols="145" readonly><%= @course.course_description %></textarea></div>
+
+
+      </div>
     </div>
 
-    </div>
   </div>
+</div>

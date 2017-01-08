@@ -9,6 +9,7 @@
   sheet1 = xls.create_worksheet
 
   # fill the [0, 0] cell
+  # sheet1[0,0] = "Products Catalog"
 
   # Worksheet#row will return a Row object. We can modify it just like an Array.
   # this code will return the second row and fill the cells.
@@ -18,11 +19,23 @@
   # we can access the instance variable we set in the controller, just like
   # in erb template
 
+   #for classtime in 1..11
+    #   sheet1.update_row classtime, "第#{classtime}节课",@timetable[1][classtime], @timetable[2][classtime], @timetable[3][classtime],
+    #  @timetable[4][classtime],@timetable[5][classtime],@timetable[6][classtime],@timetable[7][classtime]
+   #end
    for classtime in 1..11
-       sheet1.update_row classtime, "第#{classtime}节课",@timetable[1][classtime], @timetable[2][classtime], @timetable[3][classtime],
-        @timetable[4][classtime],@timetable[5][classtime],@timetable[6][classtime],@timetable[7][classtime]
+       sheet1.update_row classtime, "第#{classtime}节课"
    end
+   @course.each do |course|
+         ctime = course.course_time
+         day = ctime[0, 2].to_i
+         starttime = ctime[2, 2].to_i
+         endtime = ctime[4, 2].to_i
 
+         sheet1.merge_cells(starttime,day,endtime,day)
+         sheet1[starttime,day] =course.name+"("+course.class_room+")"
+
+  end
 
   # @courses.each_with_index do |p, i|
   #     sheet1.update_row i+1, p.course_code, p.name, p.credit, p.exam_type, p.teacher.name
@@ -30,8 +43,11 @@
 
   # we can add some formatting using Spreadsheet::Format object
 
-  title_format = Spreadsheet::Format.new(:color => :blue, :weight => :bold, :size => 18)
- # sheet1.row(0).set_format(0, title_format)
+  title_format = Spreadsheet::Format.new(:color => :blue, :weight => :bold, :size => 18,:text_justlast =>true)
+  title_format = Spreadsheet::Format.new(:size => 18,:text_justlast =>true,)
+
+  sheet1.row(1).set_format(1, title_format)
+  sheet1.row(2).set_format(1, title_format)
 
   bold = Spreadsheet::Format.new(:weight => :bold)
   sheet1.row(0).default_format = bold

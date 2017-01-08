@@ -29,7 +29,9 @@
 
 
         <div class="panel-body">
+          <% if student_logged_in? %>
           <%= link_to "导出已选课程", excel_courses_path(:format => :xls), class: 'btn btn-xs btn-info' %>
+          <% end %>
           <table class="table table-responsive table-condensed table-hover">
             <thead>
             <tr>
@@ -103,10 +105,6 @@
         </div>
 
 
-
-
-
-            <!--  -->
       </div>
     </div>
   </div>
