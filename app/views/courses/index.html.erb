@@ -15,13 +15,16 @@
           <% if student_logged_in? %>
           <% 
            s_credit=0.0
+           s_total=0.0
            for index in (0..@course.length-1)
               c=@course[index].credit.split("/")
               s_credit=s_credit+c[1].to_f
+              s_total=s_total+c[0].to_f
            end
            %>
 
-          <h3 class="panel-title">已选总学分：<%= s_credit %></h3><% end %>
+          <h3 class="panel-title">已选总学分：<%= s_credit %></h3>
+          <h4 class="panel-title">已选总课时：<%= s_total %></h4><% end %>
           <!-- 增加课程表功能-->
 
         </div>
